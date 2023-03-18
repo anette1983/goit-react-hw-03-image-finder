@@ -1,10 +1,10 @@
 import React from 'react'
-// import { StyledButton } from './Button.styled'
+import StyledButton from './Button.styled'
 import PropTypes from 'prop-types'
 
 const Button = ({onClick}) => {
   return (
-    <button type='button'onClick={onClick}>Load more</button>
+    <StyledButton type='button'onClick={onClick}>Load more</StyledButton>
   )
 }
 

@@ -1,10 +1,10 @@
 import { Component } from 'react';
+// import StyledOverlay from './Modal.styled';
+import * as Css from './Modal.styled'
 
 
 class Modal extends Component {
   state = {};
-
-  // треба повісити по кліку на карент таргет
 
   componentDidMount() {
     window.addEventListener('keydown', this.handlePressESC);
@@ -29,34 +29,22 @@ class Modal extends Component {
     }
   };
 
-  // showModal = () => {
-  //   this.setState({ isShowModal: true });
-  // };
-
-  // closeModal = () => {
-  //   this.setState({ isShowModal: false });
-  // };
-
   
   render() {
-  //   const { currentImage} = this.props;
-  //   const { largeImageURL, tags } = currentImage;
-
-  // console.log('currentImage :>> ', currentImage);
 
     return (
-      <div className="overlay" onClick={this.handleBackdropClick}
+      <Css.StyledOverlay onClick={this.handleBackdropClick}
 
         // style={{ display: 'block', backdropFilter: 'blur(5px)' }}
         // переписати в сісс
       >
-        <div className="modal">
+        <Css.StyledModal>
           <img src={this.props.image} alt={this.props.imageName} />
-        </div>
-      </div>
+        </Css.StyledModal>
+      </Css.StyledOverlay>
     );
   }
 }
-//якось визначити, яку саме фотку у модалку закладати
+
 
 export default Modal;

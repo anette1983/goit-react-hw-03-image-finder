@@ -1,13 +1,15 @@
 
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-// import Loader from '../Loader/Loader'
+
+import StyledUl from './ImageGallery.styled';
 // import PropTypes from 'prop-types'
 
 
-export const ImageGallery = ({ photos, toggleModal, isLoading }) => {
+export const ImageGallery = ({ photos, toggleModal}) => {
   return (
    <>
-    <ul className="gallery" >
+   
+    <StyledUl>
       {photos.map(({ id, webformatURL, largeImageURL, tags }) => {
         return (
           <ImageGalleryItem
@@ -20,10 +22,10 @@ export const ImageGallery = ({ photos, toggleModal, isLoading }) => {
           />
         );
       })}
-    </ul>
-     {/* {isLoading &&  <Loader/>} */}
+    </StyledUl>
+     
      </>
-    // <ul className="gallery" onClick={onImageClick}>
+    // <ul onClick={onImageClick}>
     //   {photos.map(({ id, webformatURL, largeImageURL, tags }) => {
     //     return (
     //       <ImageGalleryItem
