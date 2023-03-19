@@ -34,16 +34,24 @@ export class App extends Component {
       this.state.page !== prevState.page
     ) {
       this.getPhotos(searchQuery, page);
+    //   if (page > 1) {
+    //     window.scrollBy({
+    //       top: 10000,
+    //       behavior: 'smooth',
+    //     });
+    // }
     } else {
       return;
     }
-  }
+    console.log('page > 1 :>> ', page > 1);
 
+   
+  }
   getPhotos = async (query, page) => {
     this.setState({ isLoading: true });
-    if (!query) {
-      return;
-    }
+    // if (!query) {
+    //   return;
+    // }
 
     try {
       const response = await API.fetchImages(query, page);
@@ -68,6 +76,9 @@ export class App extends Component {
   };
 
   handleSearchSubmit = searchQuery => {
+    if (this.state.searchQuery === searchQuery) {
+      return;
+    }
     this.setState({
       searchQuery,
       isVisible: false,
@@ -93,7 +104,7 @@ export class App extends Component {
   };
 
   render() {
-    const { photos, isShownModal, largeImage, isVisible, isLoading, imageAlt } =
+    const { photos, isShownModal, largeImage, isVisible, isLoading, imageAlt} =
       this.state;
       
     return (
