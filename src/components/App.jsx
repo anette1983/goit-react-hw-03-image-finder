@@ -119,7 +119,7 @@ export class App extends Component {
           />
         )}
         {isLoading && <Loader />}
-        {isVisible && <Button onClick={this.loadMoreButton} />}
+        {(isVisible && !isLoading) && <Button onClick={this.loadMoreButton} />}
         {isShownModal && (
           <Modal
             image={largeImage}
