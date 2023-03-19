@@ -56,7 +56,8 @@ export class App extends Component {
     try {
       const response = await API.fetchImages(query, page);
       console.log('response.totalHits === 0 :>> ', response.totalHits === 0);
-      if (response.totalHits < 12) {
+      console.log('response.hits.length :>> ', response.hits.length);
+      if (response.totalHits < 12 || response.hits.length < 12) {
         this.setState({ isVisible: false });
       } else {
         this.setState({ isVisible: true });
