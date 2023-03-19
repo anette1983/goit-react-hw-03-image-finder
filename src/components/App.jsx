@@ -18,16 +18,21 @@ export class App extends Component {
     isVisible: false,
     };
 
-
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('nextState.searchQuery :>> ', nextState.searchQuery);
+  //   console.log('this.state.searchQuery :>> ', this.state.searchQuery);
+  //   console.log('nextState !== this.state :>> ', nextState !== this.state);
+  //   return nextState !== this.state;
+  // }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevState, '<><><><><>');
     const {searchQuery, page} = this.state;
 
     if (searchQuery !== prevState.searchQuery || this.state.page !== prevState.page) {
       this.getPhotos(searchQuery, page);
 
-    console.log('this.setState :>> ', this.state.searchQuery);
+  } else {
+    return;
   }
 }
 
@@ -39,11 +44,16 @@ export class App extends Component {
     
     try {
       const response = await API.fetchImages(query, page);
+      console.log('response.totalHits === 0 :>> ', response.totalHits === 0);
       if(response.totalHits < 12) {
         this.setState({ isVisible: false });
       } else {
         this.setState({ isVisible: true });
       }
+      if(response.totalHits === 0) {
+        alert(`There is no photos for ${this.state.searchQuery} query`);
+        
+      } 
       this.setState(prev => ({
         photos: [...prev.photos, ...response.hits],
       }));
