@@ -1,19 +1,24 @@
-import StyledLi from "./ImageGalleryItem.styled";
+import StyledLi from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({ webformatURL, largeImageURL, tags, toggleModal}) => {
+const ImageGalleryItem = ({
+  webformatURL,
+  largeImageURL,
+  tags,
+  toggleModal,
+}) => {
   return (
-
-    <StyledLi onClick={() => toggleModal(largeImageURL)}>
+    <StyledLi onClick={() => toggleModal(largeImageURL, tags)}>
       <img src={webformatURL} alt={tags} />
     </StyledLi>
-    
-    // <li onClick={(id) => onClick(id)}>
-       
-    //   <img src={webformatURL} alt={tags} />
-    // </li>
   );
 };
 
-
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
 
 export default ImageGalleryItem;

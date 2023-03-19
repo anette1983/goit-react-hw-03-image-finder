@@ -16,7 +16,8 @@ export class App extends Component {
     error: null,
     isShownModal: false,
     isVisible: false,
-    };
+    imageAlt: '',
+  };
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log('nextState.searchQuery :>> ', nextState.searchQuery);
@@ -26,34 +27,35 @@ export class App extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    const {searchQuery, page} = this.state;
+    const { searchQuery, page } = this.state;
 
-    if (searchQuery !== prevState.searchQuery || this.state.page !== prevState.page) {
+    if (
+      searchQuery !== prevState.searchQuery ||
+      this.state.page !== prevState.page
+    ) {
       this.getPhotos(searchQuery, page);
-
-  } else {
-    return;
+    } else {
+      return;
+    }
   }
-}
 
   getPhotos = async (query, page) => {
     this.setState({ isLoading: true });
     if (!query) {
       return;
     }
-    
+
     try {
       const response = await API.fetchImages(query, page);
       console.log('response.totalHits === 0 :>> ', response.totalHits === 0);
-      if(response.totalHits < 12) {
+      if (response.totalHits < 12) {
         this.setState({ isVisible: false });
       } else {
         this.setState({ isVisible: true });
       }
-      if(response.totalHits === 0) {
+      if (response.totalHits === 0) {
         alert(`There is no photos for ${this.state.searchQuery} query`);
-        
-      } 
+      }
       this.setState(prev => ({
         photos: [...prev.photos, ...response.hits],
       }));
@@ -63,17 +65,16 @@ export class App extends Component {
     } finally {
       this.setState({ isLoading: false });
     }
-  } 
-
-  handleSearchSubmit = searchQuery => {
-      this.setState({
-        searchQuery,
-        isVisible: false,
-        photos: [],
-        page: 1,
-      });
   };
 
+  handleSearchSubmit = searchQuery => {
+    this.setState({
+      searchQuery,
+      isVisible: false,
+      photos: [],
+      page: 1,
+    });
+  };
 
   loadMoreButton = () => {
     this.setState(prevState => ({
@@ -81,37 +82,40 @@ export class App extends Component {
       isLoading: true,
     }));
   };
-  
 
-  toggleModal = image => {
+  toggleModal = (image, imageTags) => {
     this.setState(({ isShownModal }) => ({
       isShownModal: !isShownModal,
       largeImage: image,
+      imageAlt: imageTags,
     }));
     console.log('this.state.isShownModal :>> ', this.state.isShownModal);
   };
 
   render() {
-    const { photos, isShownModal, largeImage, isVisible, isLoading } = this.state;
-
+    const { photos, isShownModal, largeImage, isVisible, isLoading, imageAlt } =
+      this.state;
+      
     return (
-      <div className='App'>
+      <div className="App">
         <Searchbar onSubmit={this.handleSearchSubmit} />
         {this.state.error && <p>Something went wrong :( Try again later!</p>}
         {photos.length > 0 && (
-          <ImageGallery photos={photos} toggleModal={this.toggleModal} onLoadMoreClick={this.loadMoreButton} />
-          )}
-        {/* {photos.length === 0 && <p>There are no photos for your query :( </p>}   */}
-        {isLoading && <Loader/>}
+          <ImageGallery
+            photos={photos}
+            toggleModal={this.toggleModal}
+            onLoadMoreClick={this.loadMoreButton}
+          />
+        )}
+        {isLoading && <Loader />}
         {isVisible && <Button onClick={this.loadMoreButton} />}
         {isShownModal && (
           <Modal
-          image={largeImage}
-          onClose={this.toggleModal}
-          alt={photos.tag}
+            image={largeImage}
+            onClose={this.toggleModal}
+            alt={imageAlt}
           />
-          )}
-      
+        )}
       </div>
     );
   }
