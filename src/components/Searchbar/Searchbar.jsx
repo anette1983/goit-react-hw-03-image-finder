@@ -21,7 +21,7 @@ export class Searchbar extends Component {
   handleSubmit = event => {
     event.preventDefault();
     if(this.state.searchQuery.trim()==='') {
-      alert('fill in search query');
+      alert('Fill in search query');
       return;
     }
     this.props.onSubmit(this.state.searchQuery);

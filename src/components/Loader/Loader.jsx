@@ -7,6 +7,7 @@ const Loader = props => (
       height={160}
       width={400}
       backgroundColor="transparent"
+      style={{ width: '100%' }}
       {...props}
     >
       <circle cx="150" cy="86" r="8" />
