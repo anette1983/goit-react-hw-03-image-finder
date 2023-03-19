@@ -1,12 +1,14 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+// import { Watch } from  'react-loader-spinner'
 
 const Loader = props => (
     <ContentLoader
       viewBox="0 0 400 160"
       height={160}
       width={400}
-      backgroundColor="transparent"
+      color="#3f51b5"
+      backgroundColor="#3f51b5"
       style={{ width: '100%' }}
       {...props}
     >
@@ -22,5 +24,18 @@ const Loader = props => (
     description: 'Three Dots',
     filename: 'ThreeDots',
   }
+
+// {/* <Watch
+//   height="80"
+//   width="80"
+//   radius="48"
+//   color="#3f51b5"
+//   ariaLabel="watch-loading"
+//   wrapperStyle={{
+//     display: 'block',
+//     margin: '0 auto',
+//   }}
+//   visible={true}
+// /> */}
   
   export default Loader;
